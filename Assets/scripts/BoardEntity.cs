@@ -1,21 +1,20 @@
 using UnityEngine;
 
-public class BoardEntity 
+public class BoardEntity
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    Vector2Int position;
-    public BoardEntity()
+    public Vector2Int Position { get; private set; }
+    public GameObject Instance { get; private set; }
+
+    public BoardEntity(Vector2Int initialPosition, GameObject prefab)
     {
-        
+        Position = initialPosition;
+        Instance = GameObject.Instantiate(prefab, new Vector3(initialPosition.x, 0, initialPosition.y), Quaternion.identity);
     }
 
-    // Update is called once per frame
-    public BoardEntity(Vector2Int initialPosition,GameObject prefab)
+    public void MoveTo(Vector2Int newPosition)
     {
-        this.position = initialPosition;
-    }
-    public void Move(Vector2Int movement)
-    {
-        position += movement;
+        Position = newPosition;
+        Instance.transform.position = new Vector3(newPosition.x, 0, newPosition.y);
     }
 }
+

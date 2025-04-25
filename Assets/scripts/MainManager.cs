@@ -1,27 +1,40 @@
 using UnityEngine;
 
-public class MainManager : MonoBehaviour,Iatackable
+public class MainManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    BoardEntity entity;
+    public GameObject entityPrefab;
+    public int initialEntityAmount = 1;
+
+    private BoardEntity[] entities;
+
     private void Awake()
     {
         entities = new BoardEntity[initialEntityAmount];
-        for int = 0; i < vecesParpadeo; i++)
+
+        for (int i = 0; i < initialEntityAmount; i++)
         {
-
+            entities[i] = new BoardEntity(new Vector2Int(i, 0), entityPrefab);
         }
-            entity = new BoardEntity(Vector2Int.zero,entityPrefab);
-        Vector3 v = new Vector3();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.getKe)
-    }
-    public void Attack()
-    {
-        throw new System.NotImplementedException();
+        // Ejemplo de movimiento con teclas
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            entities[0].MoveTo(entities[0].Position + Vector2Int.right);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            entities[0].MoveTo(entities[0].Position + Vector2Int.left);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            entities[0].MoveTo(entities[0].Position + Vector2Int.up);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            entities[0].MoveTo(entities[0].Position + Vector2Int.down);
+        }
     }
 }
