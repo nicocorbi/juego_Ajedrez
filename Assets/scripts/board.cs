@@ -1,34 +1,38 @@
 using UnityEngine;
 
-public class boardSquare 
+public class BoardSquare
 {
     public Vector2Int position;
-    public BoardEntity boardEntity;
-    public boardSquare(Vector2Int position, GameObject squarePrefab)
-    {
-        linkedEntity = null;
-    }
-    
+    public GameObject visual;
+    private Color originalColor;
 
-}
-public class MainManagerPruebas : MonoBehaviour
-{
-    [SerializeField] GameObject entityPrefab;
-    [SerializeField] int initialEntityAmount = 2;
-    int boardWidth = 5, boardHeight = 5;
-    BoardSquare[,] board;
-    BoardEntityPruebas[] entities;
-    int currentEntityIndex = 1;
-    private void Awake()
+    public BoardSquare(Vector2Int position, GameObject visual)
     {
-        Vector3[] vectors = new Vector3[200];
-        board = new BoardSquare[boardWidth, boardHeigth];
-        for (int i = 0; i < boardWidth; i++)
+        this.position = position;
+        this.visual = visual;
+
+        Renderer renderer = visual.GetComponent<Renderer>();
+        if (renderer != null)
         {
-            for (int j = 0; j < boardHeigth; j++)
-            {
-                //crear casilla
-            }
+            
+            originalColor = renderer.material.color;
         }
     }
+
+    public void SetColor(Color color)
+    {
+        Renderer renderer = visual.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = color;
+        }
+    }
+
+    public void ResetColor()
+    {
+        SetColor(originalColor);
+    }
 }
+
+
+
