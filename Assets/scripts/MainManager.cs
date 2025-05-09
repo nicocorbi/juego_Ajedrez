@@ -9,18 +9,17 @@ public class MainManagerPruebas : MonoBehaviour
     [SerializeField] Color color1 = Color.white;
     [SerializeField] Color color2 = Color.black;
     [SerializeField] GameObject cursorVisual;
-    [SerializeField] Color cursorHighlightColor = Color.red;
-    [SerializeField] Color cursorHighlightColorTurno2 = Color.blue; 
-    [SerializeField] float turnoDuracion = 10f;
+    [SerializeField] Color cursorColor = Color.red;
+    [SerializeField] Color cursorColorTurno2 = Color.blue;
+    [SerializeField] TiempoManager tiempoManager; 
 
     private BoardSquare[,] Board;
     private Cursor cursor;
-    private float tiempoTurnoActual = 0f; 
-    private bool esTurnoJugador1 = true; 
+    private bool esTurnoJugador1 = true;
 
     private void Awake()
     {
-        // Inicializar el tablero
+        // Iniciar el tablero
         Board = new BoardSquare[boardWidth, boardHeight];
         for (int i = 0; i < boardWidth; i++)
         {
@@ -35,22 +34,13 @@ public class MainManagerPruebas : MonoBehaviour
             }
         }
 
-        // Inicializar el cursor
-        cursor = new Cursor(Board, cursorVisual, cursorHighlightColor);
+        // Iniciar el cursor
+        cursor = new Cursor(Board, cursorVisual, cursorColor);
+        tiempoManager.OnCambioTurno += CambiarTurno;     
     }
 
     private void Update()
     {
-        
-        tiempoTurnoActual += Time.deltaTime;
-
-        // Cambiar de turno si el tiempo excede la duración del turno
-        if (tiempoTurnoActual >= turnoDuracion)
-        {
-            CambiarTurno();
-            tiempoTurnoActual = 0f; 
-        }
-
         // Movimiento del cursor
         int nuevaFila = cursor.GetFilaActual();
         int nuevaColumna = cursor.GetColumnaActual();
@@ -65,12 +55,17 @@ public class MainManagerPruebas : MonoBehaviour
 
     private void CambiarTurno()
     {
-        
+        // Alternar el turno
         esTurnoJugador1 = !esTurnoJugador1;
 
         // Cambiar el color del cursor según el turno
-        Color nuevoColor = esTurnoJugador1 ? cursorHighlightColor : cursorHighlightColorTurno2;
+        Color nuevoColor = esTurnoJugador1 ? cursorColor : cursorColorTurno2;
         cursor.CambiarColor(nuevoColor);
+    }
+
+    private void OnDestroy()
+    {     
+      tiempoManager.OnCambioTurno -= CambiarTurno;      
     }
 }
 

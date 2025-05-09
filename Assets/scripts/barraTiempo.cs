@@ -1,34 +1,35 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
 public class barraTiempo : MonoBehaviour
 {
-    [SerializeField] public Image icon;
-    [SerializeField] public float cooldown;
-    private float cooldownTimer = 10;
+    [SerializeField] public Image icon; 
+    [SerializeField] private TiempoManager tiempoManager; 
+    [SerializeField] Color barraTurno1 = Color.red; 
+    [SerializeField] Color barraTurno2 = Color.blue; 
+
+    private bool esTurno1 = true; 
 
     void Start()
     {
-        
-       
+              
+        tiempoManager.OnCambioTurno += CambiarTurno;
+        icon.color = barraTurno1;
     }
 
     void Update()
-    {
-        
-        if (cooldownTimer > 0)
-        {
-            cooldownTimer -= Time.deltaTime;
-            icon.fillAmount = 1 - (cooldown / cooldownTimer); // La barra se vacía con el tiempo
-        }
-        if (cooldownTimer <= 0)
-        {
-            icon.fillAmount = 1;
-        }
+    {      
+            icon.fillAmount = tiempoManager.TiempoRestante();       
+    }
 
-        
+    private void CambiarTurno()
+    {       
+        esTurno1 = !esTurno1;
+        icon.color = esTurno1 ? barraTurno1 : barraTurno2;
+    }
 
-
+    void OnDestroy()
+    {     
+       tiempoManager.OnCambioTurno -= CambiarTurno;
     }
 }

@@ -12,20 +12,14 @@ public class BoardSquare
         this.visual = visual;
 
         Renderer renderer = visual.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            
-            originalColor = renderer.material.color;
-        }
+        originalColor = renderer.material.color;  
     }
 
     public void SetColor(Color color)
     {
         Renderer renderer = visual.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            renderer.material.color = color;
-        }
+         renderer.material.color = color;
+        
     }
 
     public void ResetColor()

@@ -42,7 +42,7 @@ public class Cursor
         else if (nuevaColumna >= columnas)
             nuevaColumna = 0; 
 
-        // Actualizar la posición del cursor
+        
         if (nuevaFila != filaActual || nuevaColumna != columnaActual)
         {
            
@@ -62,8 +62,6 @@ public class Cursor
     {
         
         highlightColor = nuevoColor;
-
-        
         casillaAnterior.SetColor(highlightColor);
     }
 
