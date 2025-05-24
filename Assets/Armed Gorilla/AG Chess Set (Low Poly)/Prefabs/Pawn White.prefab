@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 106119364044010549}
-  - component: {fileID: 8669071973966629568}
+  - component: {fileID: -9044751041252782968}
   m_Layer: 0
   m_Name: Pawn White
-  m_TagString: Untagged
+  m_TagString: Pieza
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,33 +24,37 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9103817865243148253}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7385346821330611879}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &8669071973966629568
-MeshCollider:
+--- !u!114 &-9044751041252782968
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9103817865243148253}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1705324974331375986, guid: e256fd3c11be3984cad2371254d1d558, type: 3}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11797a3250b116b43bd8542493dca336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaMaxima: 3
+  escalaInicial: 1.5
+  escalaFija: 0
+  valorEscalaFija: 0.2
 --- !u!1001 &7058473995041360204
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 106119364044010549}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e256fd3c11be3984cad2371254d1d558, type: 3}
@@ -70,7 +74,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: e256fd3c11be3984cad2371254d1d558, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: dc54d735101d35846aad2a6379145ea1, type: 2}
     - target: {fileID: 919132149155446097, guid: e256fd3c11be3984cad2371254d1d558, type: 3}
@@ -78,6 +82,9 @@ PrefabInstance:
       value: Pawn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e256fd3c11be3984cad2371254d1d558, type: 3}
 --- !u!4 &7385346821330611879 stripped
 Transform:

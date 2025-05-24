@@ -13,6 +13,12 @@ public class Cursor
     private GameObject cursorVisual;
 
     private Color highlightColor;
+    private Color colorTurno;
+    private float errorTimer = 0f;
+    private float errorDuration = 0f;
+    private Color errorColor;
+
+    private bool sosteniendoPieza = false;
 
     public Cursor(BoardSquare[,] tablero, GameObject cursorVisual, Color highlightColor)
     {
@@ -21,53 +27,73 @@ public class Cursor
         this.columnas = tablero.GetLength(1);
         this.cursorVisual = cursorVisual;
         this.highlightColor = highlightColor;
+        this.colorTurno = highlightColor;
 
-        // Establecer la casilla inicial
         casillaAnterior = tablero[filaActual, columnaActual];
-        casillaAnterior.SetColor(highlightColor);
+        casillaAnterior.SetColorVisual(highlightColor);
         cursorVisual.transform.position = casillaAnterior.visual.transform.position;
+    }
+
+    public void SetSosteniendoPieza(bool valor)
+    {
+        sosteniendoPieza = valor;
     }
 
     public void Mover(int nuevaFila, int nuevaColumna)
     {
         
-        if (nuevaFila < 0)
-            nuevaFila = filas - 1; 
-        else if (nuevaFila >= filas)
-            nuevaFila = 0; 
+        nuevaFila = (nuevaFila + filas) % filas;
+        nuevaColumna = (nuevaColumna + columnas) % columnas;
 
-        // Aplicar cambio de lado 
-        if (nuevaColumna < 0)
-            nuevaColumna = columnas - 1; 
-        else if (nuevaColumna >= columnas)
-            nuevaColumna = 0; 
-
-        
         if (nuevaFila != filaActual || nuevaColumna != columnaActual)
         {
-           
             casillaAnterior.ResetColor();
-
-            // Actualizar posición
             filaActual = nuevaFila;
             columnaActual = nuevaColumna;
             casillaAnterior = tablero[filaActual, columnaActual];
-
-            // Establecer el nuevo color y mover el cursor visual
-            casillaAnterior.SetColor(highlightColor);
+            casillaAnterior.SetColorVisual(highlightColor);
             cursorVisual.transform.position = casillaAnterior.visual.transform.position;
         }
     }
+
     public void CambiarColor(Color nuevoColor)
     {
-        
         highlightColor = nuevoColor;
-        casillaAnterior.SetColor(highlightColor);
+        colorTurno = nuevoColor;
+        casillaAnterior.SetColorVisual(highlightColor);
+        errorTimer = 0f;
+    }
+
+    public void CambiarColorTemporal(Color colorTemporal, float duracion)
+    {
+        errorColor = colorTemporal;
+        errorDuration = duracion;
+        errorTimer = duracion;
+        casillaAnterior.SetColorVisual(errorColor);
+    }
+
+    public void Update()
+    {
+        if (errorTimer > 0f)
+        {
+            errorTimer -= Time.deltaTime;
+            if (errorTimer <= 0f)
+            {
+                casillaAnterior.SetColorVisual(colorTurno);
+                highlightColor = colorTurno;
+            }
+        }
     }
 
     public int GetFilaActual() => filaActual;
     public int GetColumnaActual() => columnaActual;
+    public bool EstaSosteniendoPieza() => sosteniendoPieza;
 }
+
+
+
+
+
 
 
 

@@ -4,29 +4,33 @@ public class BoardSquare
 {
     public Vector2Int position;
     public GameObject visual;
-    private Color originalColor;
+    private Color logicalColor; // Color lógico (blanco o negro)
 
-    public BoardSquare(Vector2Int position, GameObject visual)
+    public BoardSquare(Vector2Int position, GameObject visual, Color logicalColor)
     {
         this.position = position;
         this.visual = visual;
-
-        Renderer renderer = visual.GetComponent<Renderer>();
-        originalColor = renderer.material.color;  
+        this.logicalColor = logicalColor;
     }
 
-    public void SetColor(Color color)
+    public Color GetLogicalColor()
     {
-        Renderer renderer = visual.GetComponent<Renderer>();
-         renderer.material.color = color;
-        
+        return logicalColor;
+    }
+
+    public void SetColorVisual(Color color)
+    {
+        if (visual != null)
+            visual.GetComponent<Renderer>().material.color = color;
     }
 
     public void ResetColor()
     {
-        SetColor(originalColor);
+        SetColorVisual(logicalColor);
     }
 }
+
+
 
 
 

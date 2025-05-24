@@ -1,4 +1,5 @@
 public interface IAttackable
 {
-    void Attack();
+    void RecibirDanio(int cantidad);
+
 }
